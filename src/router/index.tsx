@@ -1,7 +1,6 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
   Route,
 } from "react-router-dom";
 import Home from "../pages";
@@ -12,10 +11,11 @@ import QuickStart from "../pages/learn/";
 import LearnLayout from "../pages/learn/Layout";
 import ThinkingInReact from "../pages/learn/ThinkingInReact";
 import Installation from "../pages/learn/Installation";
-import Login from "../pages/Login";
 import Contribute from "../pages/Contribute";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+import Login from "../pages/Login";
 
-const isLoggedIn = false;
+const isLoggedIn = true;
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -26,11 +26,19 @@ const router = createBrowserRouter(
         <Route path="about" element={<About />} />
         <Route
           path="contribute"
-          element={isLoggedIn ? <Contribute /> : <Navigate to="/login" />}
+          element={
+            <ProtectedRoute isAllowed={isLoggedIn} redirectPath="/login">
+              <Contribute />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="login"
-          element={isLoggedIn ? <Navigate to="/contribute" /> : <Login />}
+          element={
+            <ProtectedRoute isAllowed={!isLoggedIn} redirectPath="/contribute">
+              <Login />
+            </ProtectedRoute>
+          }
         />
       </Route>
 
