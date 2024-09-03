@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
 } from "react-router-dom";
 import Home from "../pages";
@@ -14,6 +15,7 @@ import Installation from "../pages/learn/Installation";
 import Login from "../pages/Login";
 import Contribute from "../pages/Contribute";
 
+const isLoggedIn = false;
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -22,8 +24,14 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
-        <Route path="contribute" element={<Contribute />} />
-        <Route path="login" element={<Login />} />
+        <Route
+          path="contribute"
+          element={isLoggedIn ? <Contribute /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="login"
+          element={isLoggedIn ? <Navigate to="/contribute" /> : <Login />}
+        />
       </Route>
 
       {/** Learn Layout */}
