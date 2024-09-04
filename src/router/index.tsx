@@ -14,7 +14,7 @@ import Installation from "../pages/learn/Installation";
 import Contribute from "../pages/Contribute";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import Login from "../pages/Login";
-import ErrorRouteHandler from "../components/errors/ErrorRouteHandler";
+import ErrorHandler from "../components/errors/ErrorHandler";
 
 const isLoggedIn = true;
 const userData: { email: string } | null = isLoggedIn
@@ -27,11 +27,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/** Root Layout */}
-      <Route
-        path="/"
-        element={<RootLayout />}
-        errorElement={<ErrorRouteHandler />}
-      >
+      <Route path="/" element={<RootLayout />} errorElement={<ErrorHandler />}>
         <Route index element={<Home />} />
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
