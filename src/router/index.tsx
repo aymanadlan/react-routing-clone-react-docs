@@ -14,20 +14,35 @@ import Installation from "../pages/learn/Installation";
 import Contribute from "../pages/Contribute";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import Login from "../pages/Login";
+import ErrorRouteHandler from "../components/errors/ErrorRouteHandler";
 
 const isLoggedIn = true;
+const userData: { email: string } | null = isLoggedIn
+  ? { email: "email@mail.com" }
+  : null;
+console.log("isLoggedIn", isLoggedIn);
+console.log("userData", userData);
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/** Root Layout */}
-      <Route path="/" element={<RootLayout />}>
+      <Route
+        path="/"
+        element={<RootLayout />}
+        errorElement={<ErrorRouteHandler />}
+      >
         <Route index element={<Home />} />
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
         <Route
           path="contribute"
           element={
-            <ProtectedRoute isAllowed={isLoggedIn} redirectPath="/login">
+            <ProtectedRoute
+              isAllowed={isLoggedIn}
+              redirectPath="/login"
+              data={userData}
+            >
               <Contribute />
             </ProtectedRoute>
           }
@@ -35,7 +50,11 @@ const router = createBrowserRouter(
         <Route
           path="login"
           element={
-            <ProtectedRoute isAllowed={!isLoggedIn} redirectPath="/contribute">
+            <ProtectedRoute
+              isAllowed={!isLoggedIn}
+              redirectPath="/contribute"
+              data={userData}
+            >
               <Login />
             </ProtectedRoute>
           }

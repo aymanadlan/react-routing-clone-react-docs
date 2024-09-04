@@ -4,6 +4,7 @@ import Textarea from "../components/ui/Textarea";
 
 const Contribute = () => {
   const { state } = useLocation();
+  console.log("state", state);
 
   return (
     <>

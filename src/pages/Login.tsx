@@ -4,7 +4,7 @@ import Input from "../components/ui/Input";
 
 const Login = () => {
   const location = useLocation();
-  console.log(location);
+  console.log("location", location);
 
   return (
     <div>
